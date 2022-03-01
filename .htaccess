@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule "^access/(.*)$" "/index.php?module=view&uuid=$1"
+RewriteRule "^create/$" "/index.php?module=create"
