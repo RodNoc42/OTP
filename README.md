@@ -1,16 +1,19 @@
-# OTP
+# OTP - One Time Password
 
-## Was ist es?
-OTP steht für "One Time Password" und erlaubt es, Kennwörter sicher zu übertragen.
-Das Kennwort wird in einer Datenbank gespeichert und ein Link generiert, der per Mail oder ChatProgramm geteilt werden kann. Sobald das Kennwort einmal abgerufen wurde, wird es aus der Datenbank gelöscht und kann nicht noch einmal abgerufen werden.
+## What is it?
+OTP means "One Time Password" and is a webtool to share passwords and secret.
+The password will be saved encrypted in a database and a link for this will be generated. You can share this link via mail or messenger.
+Once the password is accessed, it will be deleted from the database and can't be retrieved again.
 
-Sollte der Link beim Empfänger nicht mehr funktionieren, ist damit bekannt, dass das Kennwort kompromittiert ist und sollte direkt geändert werden.
+If the link does not work, you know that the password is compromised and should be changed immediately.
 
+## Demo
+You can try it here: https://otp.rodnoc.eu
 
 ## Installation
-Es wird mindestens PHP Version 7.4 benötigt, entwickelt wurde es für PHP8.1
+You need at least PHP 7.4, but I developed and tested it with 8.1. And you need a MySQL or MariaDB-Database
 
-Alle Dateien müssen in den Webspace hochgeladen werden und in der MySQL-Datenbank die benötigte Tabelle angelegt werden:
+Please upload all files to your webspace and create this table in your database:
 ```
 CREATE TABLE `password` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,16 +25,32 @@ PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=latin1;
 ```
 
-Unter /libs/config.php kann die Konfiguration vorgenommen werden, hier ist besondern die Datenbankverbindung wichtig.
+After this add your configuration to libs/config.php
+
 ```
+    //Show link to share a password on the landing page (true/false)
+    $config["app"]["showcreate"]=true;
+
+    //Credentials for the database connection (MySQL)
     $config["db"]["host"] = "localhost";
     $config["db"]["user"] = "otp_user";
     $config["db"]["pass"] = "password";
     $config["db"]["name"] = "otp_db";
     $config["db"]["charset"] = "latin1";
+
+    //more entropy for the password-link? true or false
+    $config["token"]["more_entropy"] = true;
+
+    //URLs to social-media. Can be the URL or false
+    $config["social"]["twitter"] = "https://twitter.com/rodnoc42";
+    $config["social"]["instagram"] = false;
+    $config["social"]["facebook"] = false;
+
+    //The secret for sodium
+    $config["app"]["secret"]="f091af0f0462172c3e049e5a1b94900ce7019adb13cee4e4c11e20dfa5d37c37";
 ```
 
-Die Verschlüsselung mit Sodium wird auch in dieser Datei konfiguriert, um einen neuen Schlüssel zu generieren kann auf der Kommandozeile zB dieses Kommando verwendet werden:
+To generate the secret for sodium, you can use this command on a CLI.
 ```
 php <<EOF
 <?php
@@ -39,5 +58,8 @@ echo sodium_bin2hex(sodium_crypto_secretbox_keygen());
 ?>
 EOF
 ```
-## Verwendung
-Unter https://otp.domain.local/create/ kann das Kennwort in der Textbox eingegeben werden. Mit Klick auf "Save it!" wird es dann in der Datenbank gespeichert und der Link zu dem Kennwort angezeigt. Dieser kann dann einfach mit dem Empfänger auf beliebigem Wege geteilt werden.
+## Usage
+Enter your password on https://otp.domain.local/create/. After a click on "Save it!" the URL to the password is listed.
+You can share this link via mail or messenger.
+The recipient can open this URL and when the password is not received yet, he can click on "Request it!" and the
+password is shown. When anyone uses the Link again, there is a information with the timestamp the password was accessed.
