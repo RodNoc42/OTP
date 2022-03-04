@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dominik
- * Date: 05.02.2016
- * Time: 21:25
- */
 
 if (!$included) {
     die("NO HACKING");

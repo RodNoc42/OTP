@@ -7,9 +7,9 @@
 <html>
 <head>
     <title>One Time Password Access</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/assets/css/main.css" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
 </head>
 <body class="is-preload">
 
@@ -18,12 +18,19 @@
 <!-- Footer -->
 <footer id="footer">
     <ul class="icons">
-        <li><a href="{$config.social.twitter}" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="{$config.social.instagram}" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-        <li><a href="{$config.social.facebook}" class="icon brands fa-facebook"><span class="label">GitHub</span></a></li>
+        {if $config.social.twitter}
+            <li><a href="{$config.social.twitter}" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
+            </li>{/if}
+        {if $config.social.instagram}
+            <li><a href="{$config.social.instagram}" class="icon brands fa-instagram"><span
+                        class="label">Instagram</span></a></li>{/if}
+        {if $config.social.facebook}
+            <li><a href="{$config.social.facebook}" class="icon brands fa-facebook"><span
+                        class="label">GitHub</span></a></li>{/if}
     </ul>
     <ul class="copyright">
-        <li>&copy; RodNoc.</li><li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
+        <li>&copy; RodNoc</li>
+        <li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>
     </ul>
 </footer>
 
