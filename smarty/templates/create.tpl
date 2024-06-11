@@ -5,7 +5,7 @@
         <a href="/access/{$uuid}">{$uuid}</a>
     {/if}
     <form method="post" action="">
-        <input type="text" name="token" value="">
+        <input type="text" name="token" value="" autocomplete="off">
         <input type="submit" name="submit" value="Save it!">
     </form>
     </p>
